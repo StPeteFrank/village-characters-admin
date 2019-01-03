@@ -10,26 +10,38 @@ class App extends Component {
       character: []
     }
   }
-
-  // getAllVillages = () => {
-  //   axios.get('https://localhost:5001/api/Village').then(response => {
-  //     this.setState({
-  //       village: response.data
-  //     })
-  //   })
-  // }
   componentDidMount() {
+    this.getAllVillages()
+    this.getAllCharacters()
+  }
+  getAllVillages = () => {
     axios.get('https://localhost:5001/api/Village').then(response => {
       this.setState({
         village: response.data
       })
     })
-    axios.get('https://localhost:5001/api/Character').then(response => {
+  }
+  getAllCharacters = () => {
+    axios.get('https://localhost:5001/api/character').then(response => {
       this.setState({
         character: response.data
       })
     })
   }
+
+  // addVillageToApi = e => {
+  //   e.preventDefault()
+  //   axios
+  //     .post('https://localhost:5001/api/village', {
+  //       name: this.state.name,
+  //       VillageLevel: this.state.VillageLevel,
+  //       TroopCapacity: this.state.TroopCapacity,
+  //       NumberOfWalls: this.state.NumberOfWalls
+  //     })
+  //     .then(resp => {
+  //       this.getAllVillages()
+  //     })
+  // }
 
   render() {
     return (
@@ -47,5 +59,4 @@ class App extends Component {
     )
   }
 }
-
 export default App
