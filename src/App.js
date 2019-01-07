@@ -63,11 +63,16 @@ class App extends Component {
       [e.target.name]: e.target.value
     })
   }
-  //Delete does not work
-  deleteCharacter = () => {
+
+  deleteCharacter = character => {
+    console.log(character)
     axios
-      .delete('https://localhost:5001/api/character')
-      .then(this.getAllCharacters())
+      .delete('https://localhost:5001/api/character', {
+        data: character
+      })
+      .then(() => {
+        this.getAllCharacters()
+      })
   }
   //Delete does not work
   deleteVillage = () => {
@@ -87,10 +92,13 @@ class App extends Component {
         <div className="ListOfCharacters">
           {this.state.character.map(character => {
             return (
-              <option value={character.id} key={character.id}>
+              <div value={character.id} key={character.id}>
                 Character: {character.name} Health: {character.health} Speed:
                 {character.speed} Hitpoints: {character.hitpoints}
-              </option>
+                <button onClick={() => this.deleteCharacter(character)}>
+                  Remove Character
+                </button>
+              </div>
             )
           })}
           <form onSubmit={this.addCharacterToApi}>
@@ -127,8 +135,6 @@ class App extends Component {
             <br />
             <button>Add Character</button>
           </form>
-          {/* Remove button does not work. */}
-          <button onClick={this.deleteCharacter}>Remove Character</button>
         </div>
 
         <div>
@@ -138,7 +144,8 @@ class App extends Component {
           {this.state.village.map(village => {
             return (
               <option value={village.id} key={village.id}>
-                Village: {village.name} Level:{village.villageLevel}
+                Village: {village.name} Level:{village.villageLevel} Capacity:{' '}
+                {village.troopCapacity} Number of Walls {village.numberOfWalls}
               </option> //This isn't returning anything but the name. Solved. Casing.
             )
           })}
