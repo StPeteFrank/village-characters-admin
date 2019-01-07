@@ -42,7 +42,7 @@ class App extends Component {
         this.getAllVillages()
       })
   }
-  //AddCharacter does not work
+
   addCharacterToApi = e => {
     e.preventDefault()
     axios
@@ -74,10 +74,12 @@ class App extends Component {
         this.getAllCharacters()
       })
   }
-  //Delete does not work
-  deleteVillage = () => {
+
+  deleteVillage = village => {
     axios
-      .delete('https://localhost:5001/api/village')
+      .delete('https://localhost:5001/api/village', {
+        data: village
+      })
       .then(this.getAllVillages())
   }
 
@@ -143,10 +145,13 @@ class App extends Component {
 
           {this.state.village.map(village => {
             return (
-              <option value={village.id} key={village.id}>
+              <div value={village.id} key={village.id}>
                 Village: {village.name} Level:{village.villageLevel} Capacity:{' '}
                 {village.troopCapacity} Number of Walls {village.numberOfWalls}
-              </option> //This isn't returning anything but the name. Solved. Casing.
+                <button onClick={() => this.deleteVillage(village)}>
+                  Remove Village
+                </button>
+              </div>
             )
           })}
 
