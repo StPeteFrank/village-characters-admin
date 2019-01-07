@@ -42,10 +42,38 @@ class App extends Component {
         this.getAllVillages()
       })
   }
+  //AddCharacter does not work
+  addCharacterToApi = e => {
+    e.preventDefault()
+    axios
+      .post('https://localhost:5001/api/character', {
+        Name: this.state.CharacterName, //Name
+        Health: this.state.Health,
+        Speed: this.state.Speed,
+        Hitpoints: this.state.Hitpoints,
+        VillageId: this.state.VillageId
+      })
+      .then(response => {
+        this.getAllCharacters()
+      })
+  }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+  //Delete does not work
+  deleteCharacter = () => {
+    axios
+      .delete('https://localhost:5001/api/character')
+      .then(this.getAllCharacters())
+  }
+  //Delete does not work
+  deleteVillage = () => {
+    axios
+      .delete('https://localhost:5001/api/village')
+      .then(this.getAllVillages())
   }
 
   render() {
@@ -65,27 +93,53 @@ class App extends Component {
               </option>
             )
           })}
+          <form onSubmit={this.addCharacterToApi}>
+            <input
+              type="text"
+              placeholder="Name"
+              name="CharacterName"
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Health"
+              name="Health"
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Speed"
+              name="Speed"
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Hitpoints"
+              name="Hitpoints"
+              onChange={this.handleChange}
+            />
+            <input
+              type="number"
+              placeholder="Village Id"
+              name="VillageId"
+              onChange={this.handleChange}
+            />
+            <br />
+            <button>Add Character</button>
+          </form>
+          {/* Remove button does not work. */}
+          <button onClick={this.deleteCharacter}>Remove Character</button>
         </div>
 
-        {/* {this.state.village.map((village, index) => {
-          return <p key={index}>{village.name}</p>
-        })} */}
-
-        {/* {this.state.character.map((character, index) => {
-          return <p key={index}>{character.name}</p>
-        })} */}
         <div>
-          {/* <select name="dealerId" onChange={this.handleDropDownChange}>
-            {/* // display all the dealers */}
-          {/* <option value="0">Select a Dealer</option> */}
           <br />
           <h3>List of Villages</h3>
 
           {this.state.village.map(village => {
             return (
               <option value={village.id} key={village.id}>
-                {village.name}
-              </option>
+                Village: {village.name} Level:{village.villageLevel}
+              </option> //This isn't returning anything but the name. Solved. Casing.
             )
           })}
 
@@ -117,13 +171,8 @@ class App extends Component {
             <br />
             <button>Add Village</button>
           </form>
-          <section>
-            {/* <ul>
-              {this.state.village.map(village => {
-                return <li key={village.id}>{village.name}</li>
-              })}
-            </ul> */}
-          </section>
+          {/* Remove button does not work. */}
+          <button onClick={this.deleteVillage}>Remove Village</button>
         </div>
       </div>
     )

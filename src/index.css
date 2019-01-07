@@ -12,11 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.ListOfCharacters {
+/* .ListOfCharacters {
   display: flex;
   flex-direction: column;
   justify-content: left;
   align-items: left;
   text-align: left;
   padding-left: 20vw;
-}
+} */
