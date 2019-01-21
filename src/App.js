@@ -47,7 +47,7 @@ class App extends Component {
     e.preventDefault()
     axios
       .post('https://localhost:5001/api/character', {
-        Name: this.state.CharacterName, //Name
+        Name: this.state.CharacterName,
         Health: this.state.Health,
         Speed: this.state.Speed,
         Hitpoints: this.state.Hitpoints,
@@ -183,8 +183,6 @@ class App extends Component {
             <br />
             <button>Add Village</button>
           </form>
-          {/* Remove button does not work. */}
-          <button onClick={this.deleteVillage}>Remove Village</button>
         </div>
       </div>
     )
